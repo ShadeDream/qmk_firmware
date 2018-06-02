@@ -1,4 +1,4 @@
-#include "alps64.h"
+#include QMK_KEYBOARD_H
 
 // Each layer gets a name for readability.
 // The underscores don't mean anything - you can
