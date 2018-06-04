@@ -32,6 +32,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+uint32_t layer_state_set_user(uint32_t state) {
+    switch (biton32(state)) {
+    case _FL:
+        rgblight_setrgb (0xFF,  0x00, 0x33);
+        break;
+    default: //  for any other layers, or the default layer
+        rgblight_setrgb (0x33,  0x00, 0xFF);
+        break;
+    }
+  return state;
+}
+
 void matrix_init_user(void) {
   my_timer = timer_read();
 }
