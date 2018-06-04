@@ -8,8 +8,9 @@
 // and just use numbers.
 #define _BL 0
 #define _FL 1
-#define _LD 2
 
+volatile uint8_t runonce = true;
+static uint16_t my_timer;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -18,7 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,    KC_P,    KC_LBRC,  KC_RBRC, KC_BSLS,  KC_DEL,  \
     KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,    KC_SCLN, KC_QUOT,  KC_ENT,            KC_PGUP,    \
     KC_LSFT,          KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT, KC_UP,    KC_PGDN,      \
-    MO(_LD), KC_LALT, KC_LGUI,                          KC_SPC,                 KC_RGUI, MO(_FL),           KC_LEFT, KC_DOWN,  KC_RIGHT
+    KC_LCTL, KC_LALT, KC_LGUI,                          KC_SPC,                 KC_RGUI, MO(_FL),           KC_LEFT, KC_DOWN,  KC_RIGHT
   ),
 
   [_FL] = LAYOUT(
@@ -27,14 +28,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_LEFT, KC_DOWN, KC_RIGHT,KC_TRNS,KC_TRNS,KC_TRNS,KC_NLCK,KC_SLCK,KC_PAUS, KC_HOME, KC_PGUP,  KC_PSCR,           KC_HOME,   \
     KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_VOLD,KC_VOLU,KC_MUTE, KC_END,  KC_PGDN,  KC_TRNS, KC_VOLU,  KC_END,       \
     KC_TRNS, KC_TRNS, KC_TRNS,                          KC_TRNS,                KC_TRNS, KC_TRNS,           KC_MPRV, KC_VOLD,  KC_MNXT
-  ),
-
-  [_LD] = LAYOUT(
-    RESET,     KC_NO,   KC_NO,   KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_NO,  RGB_TOG,    \
-    KC_NO,     KC_NO,   KC_NO,   KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_NO,  RGB_MOD, \
-    KC_NO,     KC_NO,   KC_NO,   KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_NO,  RGB_SPI,           RGB_SAI,   \
-    KC_NO,              KC_NO,   KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,KC_TRNS,  KC_NO,   KC_NO,   KC_NO,  RGB_SPD, RGB_VAI,  RGB_SAD,       \
-    KC_NO,     KC_NO,   KC_NO,                            KC_NO,                  KC_NO,   KC_NO,           RGB_HUD, RGB_VAD,  RGB_HUI
   )
 
 };
+
+void matrix_init_user(void) {
+  my_timer = timer_read();
+}
+
+void matrix_scan_user(void) {
+  if (runonce && timer_elapsed(my_timer) > 500) {
+    runonce = false;
+    rgblight_setrgb (0x33,  0x00, 0xFF);
+  }
+}
