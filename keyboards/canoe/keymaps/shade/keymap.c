@@ -34,12 +34,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
-    case _FL:
-      rgblight_sethsv_at(180, 255, 130, 0);
-      // rgblight_setrgb (0xFF,  0x00, 0x33);
+    case _FL: // FN layer color.
+      rgblight_sethsv_at (180, 255, 130, 1);
       break;
-    default: //  for any other layers, or the default layer
-      rgblight_sethsv (260, 255, 150);
+    default: // Base layer LED color.
+      rgblight_sethsv_at (260, 255, 150, 1);
       break;
     }
   return state;
