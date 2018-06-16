@@ -54,3 +54,11 @@ void matrix_scan_user(void) {
     rgblight_sethsv (260, 255, 150);
   }
 }
+
+void led_set_user(uint8_t usb_led) {
+  if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+      rgblight_sethsv_at (0, 255, 130, 0);
+  } else {
+      rgblight_sethsv_at (260, 255, 150, 0);
+  }
+}
