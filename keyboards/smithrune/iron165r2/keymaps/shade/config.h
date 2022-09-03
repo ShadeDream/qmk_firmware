@@ -1,0 +1,4 @@
+
+// Turn on the LEDS.
+#undef RGBLIGHT_DEFAULT_VAL
+#define RGBLIGHT_DEFAULT_VAL 255
