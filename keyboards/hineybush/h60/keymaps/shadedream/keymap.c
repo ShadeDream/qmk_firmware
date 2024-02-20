@@ -15,7 +15,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |-----------------------------------------------------------|
     * |Ctrl  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '| Enter  |
     * |-----------------------------------------------------------|
-    * |Shft|  \|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /| Shift    |
+    * |Shft|  \|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift| Del|
     * |-----------------------------------------------------------'
     * |Ctrl |Alt |GUI  |         Space          |GUI  |FN  |Ctrl  |
     * `-----------------------------------------------------------'
@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |-----------------------------------------------------------|
     * |      |Lft|Dwn|Rgt|   |   |   |NmL|ScL|Pau|Hom|PUp|PrntScrn|
     * |-----------------------------------------------------------|
-    * |    |   |   |   |   |   |   | V-| V+|Mut|End|PDn|          |
+    * |    |   |   |   |   |   |   | V-| V+|Mut|End|PDn|      |   |
     * |-----------------------------------------------------------'
     * |     |    |     |                        |     |FN  |      |
     * `-----------------------------------------------------------'
@@ -51,5 +51,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void keyboard_post_init_user(void) {
-  rgblight_sethsv(184, 255, 100);
+  rgblight_sethsv(195, 255, 100);
 }
